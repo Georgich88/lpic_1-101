@@ -2,24 +2,26 @@
 
 1) Q: Explore information about the processor and RAM modules.
   1.1) A: Processor info:
-  cat /proc/cpuinfo
-  lscpu
+  # cat /proc/cpuinfo
+  # lscpu
 
   1.2) A: RAM modules
-  cat /proc/meminfo
-  free -hm
-  vmstat -s
+  # cat /proc/meminfo
+  # free -hm
+  # vmstat -s
 
 
 2) Q: Define hardware model.
   A: 
-  cat /sys/block/sda/device/model
+  # cat /sys/block/sda/device/model
   
 3) Display information about all PCIEx bus slots
   A: 
-  ls /sys/bus/pci_express/devices
-  sudo dmidecode --type 9
+  # ls /sys/bus/pci_express/devices
+  # sudo dmidecode --type 9
   
 4) Disable audio card.
+  # modprobe -r pcspkr snd_pcsp
 
 5) Disable USB controller.
+  # 
