@@ -1,7 +1,25 @@
-Перед выполнением заданий важно самостоятельно повторить шаги, выполняемые на уроке.
+РџРµСЂРµРґ РІС‹РїРѕР»РЅРµРЅРёРµРј Р·Р°РґР°РЅРёР№ РІР°Р¶РЅРѕ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РїРѕРІС‚РѕСЂРёС‚СЊ С€Р°РіРё, РІС‹РїРѕР»РЅСЏРµРјС‹Рµ РЅР° СѓСЂРѕРєРµ.
 
-1) Просмотреть информацию о процессоре и модулях оперативной памяти.
-2) Определить модель жесткого диска.
-3) Вывести сведения обо всех платах расширения на шине PCIEx.
-4) Отключить звуковую карту.
-5) Выключить контроллер usb.
+1) Q: Explore information about the processor and RAM modules.
+  1.1) A: Processor info:
+  cat /proc/cpuinfo
+  lscpu
+
+  1.2) A: RAM modules
+  cat /proc/meminfo
+  free -hm
+  vmstat -s
+
+
+2) Q: Define hardware model.
+  A: 
+  cat /sys/block/sda/device/model
+  
+3) Display information about all PCIEx bus slots
+  A: 
+  ls /sys/bus/pci_express/devices
+  sudo dmidecode --type 9
+  
+4) Disable audio card.
+
+5) Disable USB controller.
