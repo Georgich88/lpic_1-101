@@ -1,7 +1,48 @@
-Перед выполнением заданий важно самостоятельно повторить шаги, выполняемые на уроке.
+РџРµСЂРµРґ РІС‹РїРѕР»РЅРµРЅРёРµРј Р·Р°РґР°РЅРёР№ РІР°Р¶РЅРѕ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РїРѕРІС‚РѕСЂРёС‚СЊ С€Р°РіРё, РІС‹РїРѕР»РЅСЏРµРјС‹Рµ РЅР° СѓСЂРѕРєРµ.
 
-1) Выяснить какой загрузчик ОС использется в вашей системе.
-2) Просмотреть журнал событий ядра.
-3) Изменить носитель по умолчанию, используемый для загрузки ОС.
-4) Попробовать загрузить ОС в режиме, отличающемся от режима по умолчанию.
-5) Узнать какой из стилей инициализации используется в вашей ОС.
+1) Find out which OS bootloader is used on your system
+$ sudo file -s /dev/sda
+
+2) View the kernel event log.
+# dmesg
+
+3) Change boot order.
+https://askubuntu.com/questions/100232/how-do-i-change-the-grub-boot-order
+
+  First, make a backup copy of /etc/default/grub. In case something goes wrong, you can easily revert to the known-good copy:
+
+    sudo cp /etc/default/grub /etc/default/grub.bak
+  Then edit the file using vim or the text editor of your choice:
+
+    sudo vim /etc/default/grub
+  Find the line that contains
+
+    GRUB_DEFAULT=0
+  and set it to
+
+    GRUB_DEFAULT=x
+  where x is the index of grub menu item to which you would like to boot to by default. Note that the menu items are zero-indexed. That means that the first item in the list is 0 and that the sixth item is actually 5. So to boot to the sixth item in the list, the line would read:
+
+    GRUB_DEFAULT=5
+  If you forgot the order of the items, take a look at /boot/grub/grub.cfg. Each menu entry is specified by a line of type:
+
+    menuentry 'Ubuntu' [options] {
+  You can also chose the default by the name instead of index, e.g.:
+
+    GRUB_DEFAULT='Ubuntu'
+  if there was a menuentry 'Ubuntu' line on /boot/grub/grub.cfg. This may be a better method, as it does not depend on the order of the entries, which could change.
+
+  To use a kernel in the "Previous Linux Versions" sub-menu use:
+
+    GRUB_DEFAULT="Previous Linux Versions>x"
+  (make sure to include the quotations), where x is the index of the old kernel on the sub-menu, or the name of the kernel as it appears in /boot/grub/grub.cfg. For example,
+
+    GRUB_DEFAULT="Previous Linux Versions>4.13.0-43-generic"
+  Then build the updated grub menu:
+
+    sudo update-grub
+
+4) Load Linux in a mode other than the default mode.
+
+5) Find out the  init system Linux
+  rpm -qf /sbin/init
